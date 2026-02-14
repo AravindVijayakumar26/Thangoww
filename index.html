@@ -46,6 +46,7 @@ body::before {
   width: 92%;
   text-align: center;
   box-shadow: 0 0 45px rgba(255,77,109,0.5);
+  position: relative;
 }
 
 h1 { font-size: 2.3rem; margin-bottom: 10px; }
@@ -75,7 +76,13 @@ button:hover { transform: scale(1.05); }
   position: absolute;
 }
 
-.choices { display: flex; justify-content: center; gap: 40px; margin-top: 25px; }
+.choices {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 25px;
+  position: relative;
+}
 
 /* 💓 Heartbeat Effect */
 .heartbeat { animation: heartbeat 1s infinite; }
@@ -216,6 +223,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const slides = ['slide0','slide1','slide3','slide2','slide4'];
   let index = 0;
+  let noClickCount = 0;
+
+  const noBtn = document.getElementById('noBtn');
 
   function nextSlide() {
     document.getElementById(slides[index]).classList.add('hidden');
@@ -251,6 +261,7 @@ I really miss you, Thangowww kuttyyyy. More than you know. Always.`;
       heart.style.left = window.innerWidth/2 + "px";
       heart.style.top = window.innerHeight/2 + "px";
       heart.style.fontSize = "20px";
+      heart.style.pointerEvents = "none";
       document.body.appendChild(heart);
 
       const angle = Math.random() * 2 * Math.PI;
@@ -280,17 +291,33 @@ I really miss you, Thangowww kuttyyyy. More than you know. Always.`;
     }
   }
 
+  noBtn.addEventListener('click', () => {
+    noClickCount++;
+
+    if (noClickCount === 1) {
+      noBtn.innerText = "No please 🥺";
+    } else if (noClickCount === 2) {
+      noBtn.innerText = "Worst decision 😭";
+    } else {
+      noBtn.innerText = "Nooo please 😢";
+    }
+
+    const moveX = Math.random() * 150 - 75;
+    const moveY = Math.random() * 80 - 40;
+    noBtn.style.transform = `translate(${moveX}px, ${moveY}px)`;
+  });
+
+  document.getElementById('yesBtn').onclick = () => {
+    heartExplosion();
+    startConfetti();
+    setTimeout(() => nextSlide(), 1200);
+  };
+
   document.getElementById('next0').onclick = nextSlide;
 
   document.getElementById('next3').onclick = () => {
     nextSlide();
     document.getElementById('next2').onclick = nextSlide;
-  };
-
-  document.getElementById('yesBtn').onclick = () => {
-    heartExplosion();
-    startConfetti();
-    setTimeout(() => document.getElementById('next3').click(), 1200);
   };
 
 });
