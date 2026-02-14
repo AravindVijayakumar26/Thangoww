@@ -20,7 +20,6 @@ body {
   background: radial-gradient(circle at top, #2b0a1f, #0a0208);
 }
 
-/* Animated Romantic Background */
 body::before {
   content: "";
   position: fixed;
@@ -84,7 +83,6 @@ button:hover { transform: scale(1.05); }
   position: relative;
 }
 
-/* Confetti */
 .confetti {
   position: fixed;
   width: 10px;
@@ -99,7 +97,6 @@ button:hover { transform: scale(1.05); }
   }
 }
 
-/* Floating Hearts */
 .floating-heart {
   position: fixed;
   bottom: -20px;
@@ -113,7 +110,6 @@ button:hover { transform: scale(1.05); }
   100% { transform: translateY(-110vh); }
 }
 
-/* Flip Cards */
 .flip-wrapper {
   display: flex;
   justify-content: center;
@@ -172,12 +168,18 @@ button:hover { transform: scale(1.05); }
     Just a soft hello… carrying all the emotions I never knew how to say,
     wrapped in a heart that quietly beats your name every single day.
   </p>
-  <button id="next0">Next 💌</button>
+  <button id="next0">Next ✨</button>
 </div>
 
 <div id="slide1" class="hidden">
-  <h1>Thangoww 💘 Will You Be My Valentine?</h1>
-  <p>Come onnn Thangoww 😌💞 my heart already chose you… now it’s just waiting for your yes 💘</p>
+  <h1> Will You Be My Valentine 🌹?</h1>
+  <p>Not just today, but every day, I choose you Gopi, just waiting for your yes 💘</p>
+
+  <img src="./photo4.jpeg"
+       style="width:220px;border-radius:20px;
+       box-shadow:0 0 25px rgba(255,77,109,0.7);
+       margin:20px 0;">
+
   <div class="choices">
     <button id="yesBtn">Yes ❤️</button>
     <button id="noBtn">No 🙈</button>
@@ -188,7 +190,7 @@ button:hover { transform: scale(1.05); }
   <h1>Yayyy 😍 Best Decision Ever!</h1>
   <img src="./photo1.jpeg" style="width:200px;border-radius:20px;box-shadow:0 0 25px rgba(255,77,109,0.7);margin:20px 0;">
   <p style="font-size:1.3rem">Miss you so much, Thangowww 🤍</p>
-  <button id="next3">Next 💌</button>
+  <button id="next3">Next 💖</button>
 </div>
 
 <div id="slide2" class="hidden">
@@ -235,9 +237,8 @@ button:hover { transform: scale(1.05); }
 </div>
 
 <div id="slide4" class="hidden">
-  <h1>What I Feel For You 💗</h1>
+  <h1>Hey My Valentine 💗</h1>
   <p id="typedText"></p>
-  <p style="margin-top:20px;font-style:italic">— Always yours, <b>Aaru</b> 💞</p>
 </div>
 
 </div>
@@ -248,7 +249,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const slides = ['slide0','slide1','slide3','slide2','slide4'];
   let index = 0;
   let noClickCount = 0;
-
   const noBtn = document.getElementById('noBtn');
 
   function nextSlide() {
@@ -259,14 +259,24 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function startTyping() {
-    const loveMessage = `The way you look, Thangowww… it’s unfairly beautiful.
-Your eyes don’t just look at me — they pull me in slowly, deeply.
-When you smile, it feels like a boat losing balance in the ocean…
-and my heart? It sinks happily, choosing you every single time.
-I really miss you, Thangowww kuttyyyy. More than you know. Always.`;
+    const loveMessage = `Your eyes don’t just meet mine… they hold me there, quietly, intensely — pulling me closer without even touching me. It feels like I’m falling, and for once, I don’t want to be saved.
+When you smile, it’s dangerous.
+Because in that single moment, the entire world fades into nothing… and it’s just you — and the way my heart forgets how to beat the way it used to.
+I feel like a boat lost in the middle of the ocean… and one glance from you is enough to shake every part of me. I lose balance completely.
+And honestly? I don’t even want to stay steady anymore.
+If loving you feels like drowning…
+then let me sink.
+Because sinking into you feels safer than standing anywhere else.
+I miss you, Thangowww kuttyyyy… dangerously, deeply, helplessly.
+More than you know. More than I ever show.
+And no matter what happens — my heart isn’t going anywhere.
+— Always yours,
+Aaru 💞`;
 
     const el = document.getElementById('typedText');
+    el.innerHTML = "";
     let i = 0;
+
     const interval = setInterval(() => {
       el.innerHTML += loveMessage[i] === '\n' ? '<br><br>' : loveMessage[i];
       i++;
