@@ -1,50 +1,233 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For My Love ❤️</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>For You ❤️</title>
+
 <style>
+* { box-sizing: border-box; }
 body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(to bottom right, #ff758c, #ff7eb3);
-    color: white;
-    text-align: center;
-    margin: 0;
-    padding: 20px;
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  overflow: hidden;
+  background: radial-gradient(circle at top, #2b0a1f, #0a0208);
 }
-h1 { margin-top: 20px; }
-.gallery {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 30px;
-    flex-wrap: wrap;
+.card {
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(14px);
+  border-radius: 26px;
+  padding: 40px;
+  max-width: 520px;
+  width: 92%;
+  text-align: center;
+  box-shadow: 0 0 45px rgba(255,77,109,0.5);
+  animation: fadeIn 1.2s ease;
 }
-.gallery img {
-    width: 250px;
-    height: 180px;
-    object-fit: cover;
-    border-radius: 15px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.4);
-    transition: transform 0.5s;
+h1 { font-size: 2.3rem; margin-bottom: 10px; }
+p { font-size: 1.1rem; line-height: 1.7; }
+button {
+  margin-top: 25px;
+  padding: 12px 28px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  background: #ff4d6d;
+  color: white;
+  transition: transform .2s;
 }
-.gallery img:hover {
-    transform: scale(1.1);
+button:hover { transform: scale(1.05); }
+.hidden { display: none; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(25px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.choices { display: flex; justify-content: center; gap: 40px; margin-top: 25px; }
+
+.flip-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+  overflow-x: auto;
+}
+
+.flip-container { perspective: 1200px; }
+
+.flip-card {
+  width: 300px;
+  height: 200px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.9s;
+  cursor: pointer;
+  box-shadow: 0 0 35px rgba(255,77,109,0.7);
+  border-radius: 20px;
+}
+.flip-card.flipped { transform: rotateY(180deg); }
+
+.side {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.front img { width: 100%; height: 100%; object-fit: cover; }
+
+.back {
+  background: linear-gradient(135deg,#ff4d6d,#8a0f3c);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  transform: rotateY(180deg);
+  font-style: italic;
+  text-align: center;
+}
+
+.heart {
+  position: fixed;
+  bottom: -20px;
+  color: rgba(255,77,109,0.7);
+  animation: floatUp linear forwards;
+  pointer-events: none;
+}
+@keyframes floatUp {
+  from { transform: translateY(0) scale(1); opacity: 1; }
+  to { transform: translateY(-110vh) scale(1.6); opacity: 0; }
+}
+
+.kiss {
+  position: fixed;
+  top: -40px;
+  font-size: 30px;
+  animation: kissFall linear forwards;
+  pointer-events: none;
+}
+@keyframes kissFall {
+  from { transform: translateY(0) scale(1); opacity: 1; }
+  to { transform: translateY(110vh) scale(1.6); opacity: 0; }
 }
 </style>
 </head>
+
 <body>
 
-<h1>Our Beautiful Memories ❤️</h1>
+<div class="card">
 
-<div class="gallery">
-    <img src="photo1.jpeg">
-    <img src="photo2.jpeg">
-    <img src="photo3.jpeg">
+<div id="slide0">
+  <h1>Hyyy Thangoww 💕</h1>
+  <p>Just a soft hello… wrapped in romance and a heart that already belongs to you 💗</p>
+  <button id="next0">Next ✨</button>
 </div>
 
-<h2>I love you forever 💕</h2>
+<div id="slide1" class="hidden">
+  <h1>Thangoww 💘 Will You Be My Valentine?</h1>
+  <p>Come onnn Thangoww 😌💞 my heart already chose you… now it’s just waiting for your yes 💘</p>
+  <div class="choices">
+    <button id="yesBtn">Yes ❤️</button>
+    <button id="noBtn">No 🙈</button>
+  </div>
+</div>
+
+<div id="slide3" class="hidden">
+  <h1>Yayyy 😍 Best Decision Ever!</h1>
+  <img src="photo1.jpeg" style="width:200px;border-radius:20px;box-shadow:0 0 25px rgba(255,77,109,0.7);margin:20px 0;">
+  <p style="font-size:1.3rem">Miss you so much, Thangowww 🤍</p>
+  <button id="next3">Next 💖</button>
+</div>
+
+<div id="slide2" class="hidden">
+  <h1>Little Pieces of You 💖</h1>
+  <div class="flip-wrapper">
+
+    <div class="flip-container">
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="side front"><img src="photo1.jpeg"></div>
+        <div class="side back">That smile of yours… it quietly destroys me 🌸</div>
+      </div>
+    </div>
+
+    <div class="flip-container">
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="side front"><img src="photo2.jpeg"></div>
+        <div class="side back">Your eyes pull me in deeper every time 😘</div>
+      </div>
+    </div>
+
+    <div class="flip-container">
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="side front"><img src="photo3.jpeg"></div>
+        <div class="side back">You own my heart completely 🖤</div>
+      </div>
+    </div>
+
+  </div>
+  <button id="next2">Next 💞</button>
+</div>
+
+<div id="slide4" class="hidden">
+  <h1>What I Feel For You 💗</h1>
+  <p id="typedText"></p>
+  <p style="margin-top:20px;font-style:italic">— Always yours, <b>Aaru</b> 💞</p>
+</div>
+
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const slides = ['slide0','slide1','slide3','slide2','slide4'];
+  let index = 0;
+
+  const loveMessage = `The way you look, Thangowww… it’s unfairly beautiful.
+
+Your eyes don’t just look at me — they pull me in slowly, deeply. When you smile, it feels like a boat losing balance in the ocean… and my heart? It sinks happily, choosing you every single time.
+
+I know I’ve had hard days. Andha time la text panna mudiyala… I truly apologize for that.
+
+I really miss you, Thangowww kuttyyyy. More than you know. Always.`;
+
+  function nextSlide() {
+    document.getElementById(slides[index]).classList.add('hidden');
+    index++;
+    const nextSlideEl = document.getElementById(slides[index]);
+    nextSlideEl.classList.remove('hidden');
+    if (slides[index] === 'slide4') startTyping();
+  }
+
+  function startTyping() {
+    const el = document.getElementById('typedText');
+    let i = 0;
+    const interval = setInterval(() => {
+      el.innerHTML += loveMessage[i] === '\n' ? '<br><br>' : loveMessage[i];
+      i++;
+      if (i >= loveMessage.length) clearInterval(interval);
+    }, 45);
+  }
+
+  document.getElementById('next0').onclick = nextSlide;
+  document.getElementById('next3').onclick = () => {
+    nextSlide();
+    document.getElementById('next2').onclick = nextSlide;
+  };
+
+  document.getElementById('yesBtn').onclick = () => {
+    setTimeout(() => document.getElementById('next3').click(), 900);
+  };
+
+});
+</script>
 
 </body>
 </html>
