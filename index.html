@@ -47,7 +47,6 @@ body::before {
   text-align: center;
   box-shadow: 0 0 45px rgba(255,77,109,0.5);
   position: relative;
-  overflow: hidden;
 }
 
 h1 { font-size: 2.3rem; margin-bottom: 10px; }
@@ -68,8 +67,6 @@ button:hover { transform: scale(1.05); }
 
 .card > div {
   transition: opacity 0.6s ease, transform 0.6s ease;
-  position: relative;
-  z-index: 2;
 }
 
 .hidden {
@@ -85,33 +82,6 @@ button:hover { transform: scale(1.05); }
   gap: 40px;
   margin-top: 25px;
   position: relative;
-}
-
-/* Glowing Background Word */
-.bg-word {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 120px;
-  font-weight: 800;
-  letter-spacing: 10px;
-  color: rgba(255,105,180,0.07);
-  white-space: nowrap;
-  pointer-events: none;
-  z-index: 0;
-  animation: slideGlow 6s ease-in-out infinite alternate;
-}
-
-@keyframes slideGlow {
-  0% {
-    transform: translate(-50%, -55%);
-    text-shadow: 0 0 20px rgba(255,77,109,0.4);
-  }
-  100% {
-    transform: translate(-50%, -45%);
-    text-shadow: 0 0 60px rgba(255,77,109,0.8);
-  }
 }
 
 /* Confetti */
@@ -197,14 +167,15 @@ button:hover { transform: scale(1.05); }
 <div class="card">
 
 <div id="slide0">
-  <div class="bg-word">LOVE</div>
   <h1>Hyyy Thangoww 💕</h1>
-  <p>Just a soft hello… wrapped in romance and a heart that already belongs to you 💗</p>
+  <p style="font-size:1.3rem; line-height:1.8; max-width:700px; margin:0 auto;">
+    Just a soft hello… carrying all the emotions I never knew how to say,
+    wrapped in a heart that quietly beats your name every single day.
+  </p>
   <button id="next0">Next ✨</button>
 </div>
 
 <div id="slide1" class="hidden">
-  <div class="bg-word">FOREVER</div>
   <h1>Thangoww 💘 Will You Be My Valentine?</h1>
   <p>Come onnn Thangoww 😌💞 my heart already chose you… now it’s just waiting for your yes 💘</p>
   <div class="choices">
@@ -214,7 +185,6 @@ button:hover { transform: scale(1.05); }
 </div>
 
 <div id="slide3" class="hidden">
-  <div class="bg-word">YES</div>
   <h1>Yayyy 😍 Best Decision Ever!</h1>
   <img src="./photo1.jpeg" style="width:200px;border-radius:20px;box-shadow:0 0 25px rgba(255,77,109,0.7);margin:20px 0;">
   <p style="font-size:1.3rem">Miss you so much, Thangowww 🤍</p>
@@ -222,7 +192,6 @@ button:hover { transform: scale(1.05); }
 </div>
 
 <div id="slide2" class="hidden">
-  <div class="bg-word">ADMIRE</div>
   <h1>Little Pieces of You 💖</h1>
 
   <div class="flip-wrapper">
@@ -266,7 +235,6 @@ button:hover { transform: scale(1.05); }
 </div>
 
 <div id="slide4" class="hidden">
-  <div class="bg-word">ALWAYS</div>
   <h1>What I Feel For You 💗</h1>
   <p id="typedText"></p>
   <p style="margin-top:20px;font-style:italic">— Always yours, <b>Aaru</b> 💞</p>
