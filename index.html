@@ -7,6 +7,7 @@
 
 <style>
 * { box-sizing: border-box; }
+
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
@@ -18,6 +19,24 @@ body {
   overflow: hidden;
   background: radial-gradient(circle at top, #2b0a1f, #0a0208);
 }
+
+/* 🌙 Animated Romantic Background */
+body::before {
+  content: "";
+  position: fixed;
+  width: 200%;
+  height: 200%;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255,77,109,0.15), transparent 40%),
+    radial-gradient(circle at 70% 60%, rgba(255,0,102,0.15), transparent 40%);
+  animation: moveBg 12s linear infinite alternate;
+  z-index: -1;
+}
+@keyframes moveBg {
+  from { transform: translate(-10%, -10%); }
+  to { transform: translate(10%, 10%); }
+}
+
 .card {
   background: rgba(255,255,255,0.12);
   backdrop-filter: blur(14px);
@@ -27,10 +46,11 @@ body {
   width: 92%;
   text-align: center;
   box-shadow: 0 0 45px rgba(255,77,109,0.5);
-  animation: fadeIn 1.2s ease;
 }
+
 h1 { font-size: 2.3rem; margin-bottom: 10px; }
 p { font-size: 1.1rem; line-height: 1.7; }
+
 button {
   margin-top: 25px;
   padding: 12px 28px;
@@ -43,15 +63,46 @@ button {
   transition: transform .2s;
 }
 button:hover { transform: scale(1.05); }
-.hidden { display: none; }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(25px); }
-  to { opacity: 1; transform: translateY(0); }
+.card > div {
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.hidden {
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+  position: absolute;
 }
 
 .choices { display: flex; justify-content: center; gap: 40px; margin-top: 25px; }
 
+/* 💓 Heartbeat Effect */
+.heartbeat { animation: heartbeat 1s infinite; }
+@keyframes heartbeat {
+  0% { transform: scale(1); }
+  25% { transform: scale(1.05); }
+  40% { transform: scale(0.98); }
+  60% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+/* 🌹 Confetti */
+.confetti {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  top: -10px;
+  animation: fall linear forwards;
+}
+@keyframes fall {
+  to {
+    transform: translateY(110vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+/* Flip Cards */
 .flip-wrapper {
   display: flex;
   justify-content: center;
@@ -72,6 +123,7 @@ button:hover { transform: scale(1.05); }
   box-shadow: 0 0 35px rgba(255,77,109,0.7);
   border-radius: 20px;
 }
+
 .flip-card.flipped { transform: rotateY(180deg); }
 
 .side {
@@ -94,30 +146,6 @@ button:hover { transform: scale(1.05); }
   transform: rotateY(180deg);
   font-style: italic;
   text-align: center;
-}
-
-.heart {
-  position: fixed;
-  bottom: -20px;
-  color: rgba(255,77,109,0.7);
-  animation: floatUp linear forwards;
-  pointer-events: none;
-}
-@keyframes floatUp {
-  from { transform: translateY(0) scale(1); opacity: 1; }
-  to { transform: translateY(-110vh) scale(1.6); opacity: 0; }
-}
-
-.kiss {
-  position: fixed;
-  top: -40px;
-  font-size: 30px;
-  animation: kissFall linear forwards;
-  pointer-events: none;
-}
-@keyframes kissFall {
-  from { transform: translateY(0) scale(1); opacity: 1; }
-  to { transform: translateY(110vh) scale(1.6); opacity: 0; }
 }
 </style>
 </head>
@@ -151,7 +179,6 @@ button:hover { transform: scale(1.05); }
 <div id="slide2" class="hidden">
   <h1>Little Pieces of You 💖</h1>
   <div class="flip-wrapper">
-
     <div class="flip-container">
       <div class="flip-card" onclick="this.classList.toggle('flipped')">
         <div class="side front"><img src="photo1.jpeg"></div>
@@ -172,7 +199,6 @@ button:hover { transform: scale(1.05); }
         <div class="side back">You own my heart completely 🖤</div>
       </div>
     </div>
-
   </div>
   <button id="next2">Next 💞</button>
 </div>
@@ -187,43 +213,84 @@ button:hover { transform: scale(1.05); }
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
+
   const slides = ['slide0','slide1','slide3','slide2','slide4'];
   let index = 0;
-
-  const loveMessage = `The way you look, Thangowww… it’s unfairly beautiful.
-
-Your eyes don’t just look at me — they pull me in slowly, deeply. When you smile, it feels like a boat losing balance in the ocean… and my heart? It sinks happily, choosing you every single time.
-
-I know I’ve had hard days. Andha time la text panna mudiyala… I truly apologize for that.
-
-I really miss you, Thangowww kuttyyyy. More than you know. Always.`;
 
   function nextSlide() {
     document.getElementById(slides[index]).classList.add('hidden');
     index++;
     const nextSlideEl = document.getElementById(slides[index]);
     nextSlideEl.classList.remove('hidden');
+    nextSlideEl.classList.add('heartbeat');
     if (slides[index] === 'slide4') startTyping();
   }
 
   function startTyping() {
+    const loveMessage = `The way you look, Thangowww… it’s unfairly beautiful.
+Your eyes don’t just look at me — they pull me in slowly, deeply.
+When you smile, it feels like a boat losing balance in the ocean…
+and my heart? It sinks happily, choosing you every single time.
+
+I really miss you, Thangowww kuttyyyy. More than you know. Always.`;
+
     const el = document.getElementById('typedText');
     let i = 0;
     const interval = setInterval(() => {
       el.innerHTML += loveMessage[i] === '\n' ? '<br><br>' : loveMessage[i];
       i++;
       if (i >= loveMessage.length) clearInterval(interval);
-    }, 45);
+    }, 40);
+  }
+
+  function heartExplosion() {
+    for (let i = 0; i < 25; i++) {
+      const heart = document.createElement('div');
+      heart.innerHTML = "❤️";
+      heart.style.position = "fixed";
+      heart.style.left = window.innerWidth/2 + "px";
+      heart.style.top = window.innerHeight/2 + "px";
+      heart.style.fontSize = "20px";
+      document.body.appendChild(heart);
+
+      const angle = Math.random() * 2 * Math.PI;
+      const distance = Math.random() * 300;
+
+      heart.animate([
+        { transform: "translate(0,0)", opacity: 1 },
+        { transform: `translate(${Math.cos(angle)*distance}px, ${Math.sin(angle)*distance}px)`, opacity: 0 }
+      ], {
+        duration: 1200,
+        easing: "ease-out"
+      });
+
+      setTimeout(() => heart.remove(), 1200);
+    }
+  }
+
+  function startConfetti() {
+    for (let i = 0; i < 40; i++) {
+      const confetti = document.createElement('div');
+      confetti.classList.add('confetti');
+      confetti.style.left = Math.random() * 100 + "vw";
+      confetti.style.background = `hsl(${Math.random()*360},100%,60%)`;
+      confetti.style.animationDuration = (2 + Math.random()*3) + "s";
+      document.body.appendChild(confetti);
+      setTimeout(() => confetti.remove(), 5000);
+    }
   }
 
   document.getElementById('next0').onclick = nextSlide;
+
   document.getElementById('next3').onclick = () => {
     nextSlide();
     document.getElementById('next2').onclick = nextSlide;
   };
 
   document.getElementById('yesBtn').onclick = () => {
-    setTimeout(() => document.getElementById('next3').click(), 900);
+    heartExplosion();
+    startConfetti();
+    setTimeout(() => document.getElementById('next3').click(), 1200);
   };
 
 });
